@@ -10,15 +10,12 @@ class Save_data:
 	def save(data_to_save):
 		with open('information.txt', 'a+') as myFile:
 			myFile.write(data_to_save)
+			myFile.write('\n')
 
-	def log(gmail, passw):
-		data_user = f'{gmail} {passw}'
+	def log(info):
+		print(info)
 		with open('information.txt', 'r+') as myFile:
-			data_list = myFile.readlines()
+			data_list = myFile.read().splitlines()
 			for data in data_list:
-				if data[:-1].endswith(data_user):
+				if info in data:
 					return True
-
-				elif data.endswith(data_user):
-					return True
-				return False
