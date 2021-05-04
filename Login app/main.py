@@ -62,7 +62,7 @@ class MainWindow(qwd.QWidget):
 		username_to_save = self.username.text()
 		password_to_save = self.password.text()
 		gmail_to_save = self.gmail.text()
-		data_to_save = str(username_to_save) + ' ' + str(gmail_to_save) + ' ' + str(password_to_save) + '\n'
+		data_to_save = f'{username_to_save} [{gmail_to_save} {password_to_save}] \n' 
 
 		if Save_data.check(gmail_to_save) != True:
 			if len(username_to_save) > 5 and len(password_to_save) > 5:
@@ -126,11 +126,12 @@ class SecondWindow(qwd.QWidget):
 		self.sign_but.clicked.connect(self.open_main)
 		self.but_ok.clicked.connect(self.check_data)
 
-	def check_data(self):
-		password_to_check = self.password.text()
-		gmail_to_check = self.gmail.text()
-		
-		if Save_data.log(gmail_to_check, password_to_check): # checks if the user has an account
+	def check_data(self):	
+		self.gmail_to_check = self.gmail.text()
+		self.password_to_check = self.password.text()
+		self.data_to_check = f'[{self.gmail_to_check} {self.password_to_check}]'
+
+		if Save_data.log(self.data_to_check): # checks if the user has an account
 			self.welcome_box.showMessage('WELCOME!')
 		else:
 			self.welcome_box.showMessage("U don't have an account!")
